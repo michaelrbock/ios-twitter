@@ -20,6 +20,7 @@ class TweetsViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
 
@@ -53,5 +54,17 @@ extension TweetsViewController: UITableViewDataSource {
         cell.tweet = tweets[indexPath.row]
 
         return cell
+    }
+}
+
+extension TweetsViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.selected = false
+
+        let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
+        detailViewController.tweet = tweets[indexPath.row]
+
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

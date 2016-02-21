@@ -11,15 +11,21 @@ import UIKit
 class Tweet: NSObject {
     let dateFormatter = NSDateFormatter()
 
+    var id: Int?
     var user: User?
     var text: String?
     var createdAtString: String?
     var createdAt: NSDate?
+    var retweetCount: Int?
+    var likeCount: Int?
 
     init(dictionary: NSDictionary) {
+        id = dictionary["id"] as? Int
         user = User(dictionary: dictionary["user"] as! NSDictionary)
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
+        retweetCount = dictionary["retweet_count"] as? Int
+        likeCount = dictionary["favorite_count"] as? Int
 
         // TODO: make the formatter some static thing.
         dateFormatter.dateFormat = "EEE MMM  d HH:mm:ss Z y"

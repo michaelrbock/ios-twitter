@@ -50,6 +50,28 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    func retweetStatus(id: Int) {
+        POST("1.1/statuses/retweet/\(id).json",
+             parameters: nil,
+             progress: nil,
+             success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                print("retweett sent successfully for tweet id #\(id)")
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("there was an error sending that retweet")
+        }
+    }
+
+    func createLikeForStatus(id: Int) {
+        POST("1.1/favorites/create.json",
+            parameters: ["id": id],
+            progress: nil,
+            success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                print("like sent successfully for tweet id #\(id)")
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("there was an error sending that like")
+        }
+    }
+
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET("1.1/statuses/home_timeline.json",
             parameters: params,

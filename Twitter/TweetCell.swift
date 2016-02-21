@@ -18,9 +18,10 @@ class TweetCell: UITableViewCell {
 
     var tweet: Tweet! {
         didSet {
-            profileImageView.setImageWithURL(NSURL(string: tweet.user!.profileImageURL!)!)
-            nameLabel.text = tweet.user!.name!
-            handleLabel.text = "@\(tweet.user!.screenName!)"
+            let user = tweet.user!
+            profileImageView.setImageWithURL(NSURL(string: user.profileImageURL!)!)
+            nameLabel.text = user.name!
+            handleLabel.text = "@\(user.screenName!)"
             dateLabel.text = tweet.friendlyDateString()
             tweetTextLabel.text = tweet.text
         }
