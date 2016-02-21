@@ -6,6 +6,7 @@
 //  Copyright © 2016 Michael R. Bock. All rights reserved.
 //
 
+import MBProgressHUD
 import UIKit
 
 class TweetsViewController: UIViewController {
@@ -31,9 +32,11 @@ class TweetsViewController: UIViewController {
     }
 
     func getTimelineData() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             self.refreshControl.endRefreshing()
         }
     }
