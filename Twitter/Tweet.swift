@@ -11,7 +11,7 @@ import UIKit
 class Tweet: NSObject {
     let dateFormatter = NSDateFormatter()
 
-    var id: Int?
+    var id: String?
     var user: User?
     var text: String?
     var createdAtString: String?
@@ -20,7 +20,7 @@ class Tweet: NSObject {
     var likeCount: Int?
 
     init(dictionary: NSDictionary) {
-        id = dictionary["id"] as? Int
+        id = dictionary["id_str"] as? String
         user = User(dictionary: dictionary["user"] as! NSDictionary)
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String

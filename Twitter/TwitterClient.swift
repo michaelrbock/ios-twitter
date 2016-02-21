@@ -50,7 +50,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    func retweetStatus(id: Int) {
+    func retweetStatus(id: String) {
         POST("1.1/statuses/retweet/\(id).json",
              parameters: nil,
              progress: nil,
@@ -61,7 +61,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    func createLikeForStatus(id: Int) {
+    func createLikeForStatus(id: String) {
         POST("1.1/favorites/create.json",
             parameters: ["id": id],
             progress: nil,
