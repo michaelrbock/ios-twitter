@@ -39,9 +39,21 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    func updateStatusWithParams(params: NSDictionary?) {
+        POST("1.1/statuses/update.json",
+            parameters: params,
+            progress: nil,
+            success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                print("tweet successfully sent")
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("failed to send tweet")
+        }
+    }
+
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET("1.1/statuses/home_timeline.json",
             parameters: params,
+            progress: nil,
             success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 //print("home_timeline: \(response)")
                 let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
@@ -64,6 +76,7 @@ class TwitterClient: BDBOAuth1SessionManager {
 
             TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json",
                 parameters: nil,
+                progress: nil,
                 success: { (dataTast: NSURLSessionDataTask, response: AnyObject?) -> Void in
                     //print("user: \(response)")
                     let user = User(dictionary: response as! NSDictionary)

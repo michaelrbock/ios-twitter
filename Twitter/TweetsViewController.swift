@@ -47,14 +47,7 @@ extension TweetsViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
 
-        let tweet = tweets[indexPath.row]
-        let user = tweet.user!
-
-        cell.profileImageView.setImageWithURL(NSURL(string: user.profileImageURL!)!)
-        cell.nameLabel.text = user.name
-        cell.handleLabel.text = "@\(user.screenName!)"
-        cell.dateLabel.text = tweet.friendlyDateString()
-        cell.tweetTextLabel.text = tweet.text
+        cell.tweet = tweets[indexPath.row]
 
         return cell
     }

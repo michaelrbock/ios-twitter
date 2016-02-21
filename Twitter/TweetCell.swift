@@ -16,17 +16,31 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
 
+    var tweet: Tweet! {
+        didSet {
+            profileImageView.setImageWithURL(NSURL(string: tweet.user!.profileImageURL!)!)
+            nameLabel.text = tweet.user!.name!
+            handleLabel.text = "@\(tweet.user!.screenName!)"
+            dateLabel.text = tweet.friendlyDateString()
+            tweetTextLabel.text = tweet.text
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        profileImageView.layer.cornerRadius = 3
+        profileImageView.clipsToBounds = true
 
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
+        tweetTextLabel.preferredMaxLayoutWidth = tweetTextLabel.frame.size.width
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
+        tweetTextLabel.preferredMaxLayoutWidth = tweetTextLabel.frame.size.width
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
