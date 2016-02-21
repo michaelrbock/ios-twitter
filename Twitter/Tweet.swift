@@ -9,6 +9,8 @@
 import UIKit
 
 class Tweet: NSObject {
+    let dateFormatter = NSDateFormatter()
+
     var user: User?
     var text: String?
     var createdAtString: String?
@@ -20,9 +22,8 @@ class Tweet: NSObject {
         createdAtString = dictionary["created_at"] as? String
 
         // TODO: make the formatter some static thing.
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "EEE MMM  d HH:mm:ss Z y"
-        createdAt = formatter.dateFromString(createdAtString!)
+        dateFormatter.dateFormat = "EEE MMM  d HH:mm:ss Z y"
+        createdAt = dateFormatter.dateFromString(createdAtString!)
     }
 
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
@@ -32,5 +33,27 @@ class Tweet: NSObject {
             tweets.append(Tweet(dictionary: dictionary))
         }
         return tweets
+    }
+
+    func friendlyDateString() -> String {
+        let timeSinceDate = NSDate().timeIntervalSinceDate(createdAt!)
+
+        if timeSinceDate < (24.0 * 60.0 * 60.0) {
+            let hoursSinceDate = Int(timeSinceDate / (60.0 * 60.0))
+            if hoursSinceDate == 0 {
+                let minutesSinceDate = Int(timeSinceDate / 60.0)
+                if minutesSinceDate == 0 {
+                    let secondsSinceDate = Int(timeSinceDate)
+                    return "\(secondsSinceDate)s"
+                } else {
+                    return "\(minutesSinceDate)m"
+                }
+            } else {
+                return "\(hoursSinceDate)h"
+            }
+        } else {
+            dateFormatter.dateFormat = "MM/dd/yy"
+            return dateFormatter.stringFromDate(createdAt!)
+        }
     }
 }

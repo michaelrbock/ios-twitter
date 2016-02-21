@@ -10,15 +10,22 @@ import UIKit
 
 class TweetsViewController: UIViewController {
 
-    var tweets: [Tweet]?
+    @IBOutlet weak var tableView: UITableView!
+
+    var tweets: [Tweet]! = [Tweet]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
 
         // Do any additional setup after loading the view.
         TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             self.tweets = tweets
             // reload tableview
+            self.tableView.reloadData()
         }
     }
 
@@ -27,18 +34,28 @@ class TweetsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onLogout(sender: UIButton) {
+    @IBAction func onLogout(sender: UIBarButtonItem) {
         User.currentUser?.logout()
     }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension TweetsViewController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets.count
     }
-    */
 
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+
+        let tweet = tweets[indexPath.row]
+        let user = tweet.user!
+
+        cell.profileImageView.setImageWithURL(NSURL(string: user.profileImageURL!)!)
+        cell.nameLabel.text = user.name
+        cell.handleLabel.text = "@\(user.screenName!)"
+        cell.dateLabel.text = tweet.friendlyDateString()
+        cell.tweetTextLabel.text = tweet.text
+
+        return cell
+    }
 }
