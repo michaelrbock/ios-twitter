@@ -25,7 +25,7 @@ The following **optional** features are implemented:
     - [ ] User should be able to unretweet and should decrement the retweet count.
     - [X] User should be able to unfavorite and should decrement the favorite count.
 - [X] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
-- [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+- [X] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
 The following **additional** features are implemented:
 
