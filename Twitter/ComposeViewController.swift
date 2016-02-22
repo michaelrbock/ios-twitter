@@ -14,6 +14,9 @@ class ComposeViewController: UIViewController {
     @IBOutlet weak var characterCountLabel: UILabel!
     @IBOutlet weak var tweetTextView: UITextView!
 
+    var inReplyToUsername: String?
+    var inReplyToId: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,10 +26,15 @@ class ComposeViewController: UIViewController {
 
         tweetTextView.delegate = self
 
-        tweetTextView.textColor = UIColor.grayColor()
         tweetTextView.layer.cornerRadius = 5
         tweetTextView.layer.borderColor = UIColor.blackColor().CGColor
         tweetTextView.layer.borderWidth = 1
+
+        if let inReplyToUsername = inReplyToUsername {
+            tweetTextView.text = "@\(inReplyToUsername) "
+        } else {
+            tweetTextView.textColor = UIColor.grayColor()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +52,10 @@ class ComposeViewController: UIViewController {
     }
 
     @IBAction func onSendButton(sender: UIBarButtonItem) {
-        let params = ["status": tweetTextView.text]
+        var params = ["status": tweetTextView.text]
+        if inReplyToId != nil {
+            params["in_reply_to_status_id"] = inReplyToId
+        }
         TwitterClient.sharedInstance.updateStatusWithParams(params)
 
         dismissViewControllerAnimated(true, completion: nil)

@@ -38,7 +38,7 @@ class DetailViewController: UIViewController {
         let user = tweet.user!
         profileImageView.setImageWithURL(NSURL(string: user.profileImageURL!)!)
         nameLabel.text = user.name
-        handleLabel.text = "@\(user.screenName)"
+        handleLabel.text = "@\(user.screenName!)"
         tweetTextLabel.text = tweet.text
         dateLabel.text = "\(tweet.friendlyDateString()) ago"
         retweetCountLabel.text = "\(localRetweetCount) RETWEETS"
@@ -78,5 +78,13 @@ class DetailViewController: UIViewController {
             localLikeCount = localLikeCount - 1
         }
         likeCountLabel.text = "\(localLikeCount) LIKES"
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navigationViewController = segue.destinationViewController as! UINavigationController
+        let composeViewController = navigationViewController.topViewController as! ComposeViewController
+
+        composeViewController.inReplyToUsername = tweet.user!.screenName
+        composeViewController.inReplyToId = tweet.id
     }
 }

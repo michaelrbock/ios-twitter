@@ -277,6 +277,7 @@
                                 <state key="normal" title="Reply"/>
                                 <connections>
                                     <action selector="onReply:" destination="nFU-vV-VQJ" eventType="touchUpInside" id="SVa-Jr-ll2"/>
+                                    <segue destination="OlO-Hb-yI0" kind="modal" identifier="replySegue" id="7z5-fo-QCw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEX-UX-bnZ">
@@ -397,4 +398,7 @@
             <point key="canvasLocation" x="787" y="890"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="7z5-fo-QCw"/>
+    </inferredMetricsTieBreakers>
 </document>

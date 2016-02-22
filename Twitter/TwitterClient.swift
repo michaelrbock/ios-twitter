@@ -55,7 +55,7 @@ class TwitterClient: BDBOAuth1SessionManager {
              parameters: nil,
              progress: nil,
              success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                print("retweett sent successfully for tweet id #\(id)")
+                print("retweet sent successfully for tweet id #\(id)")
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
                 print("there was an error sending that retweet")
         }
