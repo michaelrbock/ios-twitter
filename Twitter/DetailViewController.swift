@@ -18,6 +18,10 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var likeCountLabel: UILabel!
 
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+
     var localRetweetCount: Int!
     var localLikeCount: Int!
 
@@ -39,6 +43,10 @@ class DetailViewController: UIViewController {
         dateLabel.text = "\(tweet.friendlyDateString()) ago"
         retweetCountLabel.text = "\(localRetweetCount) RETWEETS"
         likeCountLabel.text = "\(localLikeCount) LIKES"
+
+        replyButton.setImage(UIImage(named: "reply.pdf"), forState: UIControlState.Normal)
+        retweetButton.setImage(UIImage(named: "retweet.pdf"), forState: UIControlState.Normal)
+        likeButton.setImage(UIImage(named: "like.pdf"), forState: UIControlState.Normal)
 
         tweetTextLabel.preferredMaxLayoutWidth = tweetTextLabel.frame.size.width
     }
