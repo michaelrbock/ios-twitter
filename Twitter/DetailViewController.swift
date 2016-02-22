@@ -76,6 +76,7 @@ class DetailViewController: UIViewController {
             TwitterClient.sharedInstance.createLikeForStatus(tweet.id!)
         } else {
             localLikeCount = localLikeCount - 1
+            TwitterClient.sharedInstance.destroyLikeForStatus(tweet.id!)
         }
         likeCountLabel.text = "\(localLikeCount) LIKES"
     }

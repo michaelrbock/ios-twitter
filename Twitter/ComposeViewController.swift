@@ -60,6 +60,11 @@ class ComposeViewController: UIViewController {
 
         dismissViewControllerAnimated(true, completion: nil)
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destinationViewController = segue.destinationViewController
+        print("\(destinationViewController)")
+    }
 }
 
 extension ComposeViewController: UITextViewDelegate {

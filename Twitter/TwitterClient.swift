@@ -66,9 +66,20 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: ["id": id],
             progress: nil,
             success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                print("like sent successfully for tweet id #\(id)")
+                print("like created successfully for tweet id #\(id)")
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("there was an error sending that like")
+                print("there was an error creating that like")
+        }
+    }
+
+    func destroyLikeForStatus(id: String) {
+        POST("1.1/favorites/destroy.json",
+            parameters: ["id": id],
+            progress: nil,
+            success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                print("like destroy sent successfully for tweet id #\(id)")
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("there was an error destroying that like")
         }
     }
 
